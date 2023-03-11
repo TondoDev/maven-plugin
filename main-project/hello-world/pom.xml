@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<parent>
+		<groupId>org.tondo.maven</groupId>
+		<artifactId>main-project</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>hello-world</artifactId>
+	<description>Sample project to run with plugin</description>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.tondo.maven</groupId>
+				<artifactId>stats-maven-plugin</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>CmdVal</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>hello</goal>
+						</goals>
+<!-- 						<configuration> -->
+<!-- 							<userName>Tonko</userName> -->
+<!-- 						</configuration> -->
+					</execution>
+					<!--  Same execution like from parent POM will override the value from the parent -->
+					<execution>
+						<id>ConfigVal</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>hello</goal>
+						</goals>
+						<configuration>
+							<userName>Tonko</userName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>DoubledConfigVal</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>hello</goal>
+						</goals>
+						<configuration>
+							<userName>Janka</userName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>PropertiesConfigVal</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>hello</goal>
+						</goals>
+						<configuration>
+							<!--  we can override this property from cmd -Dstat.param.name=xxx,
+							but it must bedefined in POM properties section -->
+							<userName>${stat.param.name}</userName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>
